@@ -2,11 +2,12 @@ package chairattanangkul.ployrung.mytraffic;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Explicit
     private TextView titleTextView, detailTextView; //มี text view 2 ตัว ประกาศ 2  ตัว
@@ -32,9 +33,20 @@ public class DetailActivity extends AppCompatActivity {
         //Show View
         showView();
 
+        //Button Controller
+        buttonController();
 
+            preButton.setOnClickListener(this); //this then alt+enter choose the second will implement OnClick Method below
+            backButton.setOnClickListener(this);
+            nextButton.setOnClickListener(this);
 
     }       //Main Method
+
+    private void buttonController() {
+
+
+
+    }   //Button Controller
 
     private void showView() {
 
@@ -69,6 +81,34 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.button2:
+
+                myIndexAnInt -= 1;
+                if (myIndexAnInt < 0) {
+                    myIndexAnInt = 19;
+                }
+                changeView(myIndexAnInt);
+                break;
+
+            case R.id.button3:
+                finish(); //back to first page
+                break;
+
+            case R.id.button4:
+                myIndexAnInt += 1;
+                if (myIndexAnInt >= 20) {
+                    myIndexAnInt = 0;
+
+                }
+                changeView(myIndexAnInt);
+                break;
+        }   // switch
+
+    }   // onClick
 }   //Main Class
 
 
