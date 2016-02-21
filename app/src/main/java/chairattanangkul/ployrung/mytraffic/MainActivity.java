@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //drive array 3 types
         //Type1
 
-        int[] iconInts = {R.drawable.traffic_01, R.drawable.traffic_02, R.drawable.traffic_03,
+        final int[] iconInts = {R.drawable.traffic_01, R.drawable.traffic_02, R.drawable.traffic_03,
                 R.drawable.traffic_03, R.drawable.traffic_04, R.drawable.traffic_05, R.drawable.traffic_06,
                 R.drawable.traffic_07, R.drawable.traffic_08, R.drawable.traffic_09, R.drawable.traffic_10,
                 R.drawable.traffic_11, R.drawable.traffic_12, R.drawable.traffic_13, R.drawable.traffic_14,
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //Type2 ถ้าแบบที่ 1 ต้องใส่ "" สำหรับ string
         //แบบสอง จองหน่วยความจำ  copy past then ctrl+alt+L เรียงโค้ด
 
-        String[] titleStrings = new String[20];
+        final String[] titleStrings = new String[20];
         titleStrings[0] = "หัวข้อหลักที่ 1";
         titleStrings[1] = "หัวข้อหลักที่ 2";
         titleStrings[2] = "หัวข้อหลักที่ 3";
@@ -82,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter myAdapter = new MyAdapter(MainActivity.this, iconInts, titleStrings, detailStrings);
         trafficListView.setAdapter(myAdapter);
 
+        //ListView Active When Click by Item
+
+        trafficListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+
+                // จากที่ไหน .this ไปที่ไหน .class
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+
+
+                //ทำ intent และ put extra โดยการ โยน array ของ รูป และ title และ index ไปด้วย ลิ้ง 2 หน้าหลังจากคลิกหน้าแรก เลยต้องมาทำที่ ลิสวิว
+                intent.putExtra("Title", titleStrings);
+                intent.putExtra("Image", iconInts);
+                intent.putExtra("Index", i);
+                // ละไปเขียนรับค่าหน้า detail
+
+                startActivity(intent);
+
+            }   //event
+        });
 
 
     }   // listViewController
